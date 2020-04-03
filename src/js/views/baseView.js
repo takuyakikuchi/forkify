@@ -6,9 +6,10 @@ This module contains common variables and functions as follows
 
 // -------------- DOMstrings -----------------
 export const dom = {
+  searchForm: document.querySelector(".search"),
   searchInput: document.querySelector(".search__field"),
-  searchField: document.querySelector(".search"),
-  searchResults: document.querySelector("ul.results__list")
+  searchResults: document.querySelector("ul.results__list"),
+  searchPages: document.querySelector(".results__pages")
 };
 
 export const ellipsis = (name, length) => {

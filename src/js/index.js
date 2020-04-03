@@ -3,6 +3,8 @@ import Search from "./models/Search";
 import { dom } from "./views/baseView";
 import * as searchView from "./views/searchView";
 
+const state = {};
+
 // ----------------- Search controller -----------------
 
 // Search recipes in API and display them in the list
@@ -13,16 +15,23 @@ const search = async () => {
     if (input) {
       // Create search instance with API search results
       const search = new Search(input);
-      const results = await search.getResult();
+      state.search = await search.fetchResult();
       // Disply search results
-      searchView.displayResults(results);
+      searchView.displayResults(state.search);
     }
   } catch (error) {
     alert(error);
   }
 };
 
-dom.searchField.addEventListener("submit", e => {
+const pagenate = e => {
+  const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
+  searchView.displayResults(state.search, targetPage);
+};
+
+dom.searchForm.addEventListener("submit", e => {
   e.preventDefault();
   search();
 });
+
+dom.searchPages.addEventListener("click", pagenate);

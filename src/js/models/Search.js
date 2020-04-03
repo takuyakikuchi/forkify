@@ -7,7 +7,7 @@ export default class Search {
     this.keyword = keyword;
   }
 
-  async getResult() {
+  async fetchResult() {
     try {
       const results = await axios.get(
         `https://forkify-api.herokuapp.com/api/search?q=${this.keyword}`
