@@ -45,14 +45,23 @@ const renderButton = (currentPage, pageTotal) => {
   dom.searchPages.insertAdjacentHTML("afterbegin", pageButton);
 };
 
-export const displayResults = (results, page = 2, maxShow = 10) => {
-  // Reassign results according to maxShow setting
+export const displayResults = (results, page = 1, maxShow = 10) => {
+  // Render results according to the page setting
   const targetResults = results.slice(maxShow * (page - 1), maxShow * page);
   targetResults.forEach(result => {
     renderResult(result);
   });
-  // Calcurating total number of pages
+  // Render buttons unless pageTotal is 1
   const pageTotal = Math.ceil(results.length / maxShow);
-  // Render page button unless pageTotal is 1
   if (pageTotal !== 1) renderButton(page, pageTotal);
+};
+
+export const clearResults = () => {
+  // Clear targets are lists and buttons
+  const elements = [dom.searchResults, dom.searchPages];
+  elements.forEach(element => {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  });
 };

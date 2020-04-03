@@ -7,7 +7,15 @@ const state = {};
 
 // ----------------- Search controller -----------------
 
-// Search recipes in API and display them in the list
+// Display search results
+const displaySearch = (page = 1) => {
+  // Clear existing lists and page buttons
+  searchView.clearResults();
+  // Disply search results
+  searchView.displayResults(state.search, page);
+};
+
+// Search recipes in API
 const search = async () => {
   try {
     // Get input value
@@ -16,17 +24,21 @@ const search = async () => {
       // Create search instance with API search results
       const search = new Search(input);
       state.search = await search.fetchResult();
-      // Disply search results
-      searchView.displayResults(state.search);
+      // Display results
+      displaySearch();
     }
   } catch (error) {
     alert(error);
   }
 };
 
+// Get target page number from the closest page button
 const pagenate = e => {
-  const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
-  searchView.displayResults(state.search, targetPage);
+  if (e.target.closest("[data-page]")) {
+    const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
+    // Display results
+    displaySearch(targetPage);
+  }
 };
 
 dom.searchForm.addEventListener("submit", e => {
