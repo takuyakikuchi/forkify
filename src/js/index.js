@@ -17,23 +17,23 @@ const displaySearch = (page = 1) => {
 
 // Search recipes in API
 const search = async () => {
-  try {
-    // Get input value
-    const input = searchView.getSearchValue();
-    if (input) {
+  // Get input value
+  const input = searchView.getSearchValue();
+  if (input) {
+    try {
       // Create search instance with API search results
       const search = new Search(input);
       state.search = await search.fetchResult();
       // Display results
       displaySearch();
+    } catch (error) {
+      alert(error);
     }
-  } catch (error) {
-    alert(error);
   }
 };
 
 // Get target page number from the closest page button
-const pagenate = e => {
+const pagenate = (e) => {
   if (e.target.closest("[data-page]")) {
     const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
     // Display results
@@ -41,9 +41,9 @@ const pagenate = e => {
   }
 };
 
-dom.searchForm.addEventListener("submit", e => {
+dom.search.addEventListener("submit", (e) => {
   e.preventDefault();
   search();
 });
 
-dom.searchPages.addEventListener("click", pagenate);
+dom.resultsPages.addEventListener("click", pagenate);

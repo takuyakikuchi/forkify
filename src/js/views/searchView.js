@@ -1,8 +1,8 @@
 import { dom, ellipsis } from "./baseView";
 
-export const getSearchValue = () => dom.searchInput.value;
+export const getSearchValue = () => dom.searchField.value;
 
-const renderResult = result => {
+const renderResult = (result) => {
   const li = `<li>
       <a class="results__link" href="#${result.recipe_id}">
         <figure class="results__fig">
@@ -14,7 +14,7 @@ const renderResult = result => {
         </div>
       </a>
     </li>`;
-  dom.searchResults.insertAdjacentHTML("beforeend", li);
+  dom.resultsList.insertAdjacentHTML("beforeend", li);
 };
 
 const renderButton = (currentPage, pageTotal) => {
@@ -29,7 +29,7 @@ const renderButton = (currentPage, pageTotal) => {
   }
 
   const pageButton = pages
-    .map(page => {
+    .map((page) => {
       return `<button class="btn-inline results__btn--${page}" data-page="${
         page === "prev" ? currentPage - 1 : currentPage + 1
       }">
@@ -42,13 +42,13 @@ const renderButton = (currentPage, pageTotal) => {
       </button>`;
     })
     .join("");
-  dom.searchPages.insertAdjacentHTML("afterbegin", pageButton);
+  dom.resultsPages.insertAdjacentHTML("afterbegin", pageButton);
 };
 
 export const displayResults = (results, page = 1, maxShow = 10) => {
   // Render results according to the page setting
   const targetResults = results.slice(maxShow * (page - 1), maxShow * page);
-  targetResults.forEach(result => {
+  targetResults.forEach((result) => {
     renderResult(result);
   });
   // Render buttons unless pageTotal is 1
@@ -58,8 +58,8 @@ export const displayResults = (results, page = 1, maxShow = 10) => {
 
 export const clearResults = () => {
   // Clear targets are lists and buttons
-  const elements = [dom.searchResults, dom.searchPages];
-  elements.forEach(element => {
+  const elements = [dom.resultsList, dom.resultsPages];
+  elements.forEach((element) => {
     while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
