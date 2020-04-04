@@ -11,6 +11,7 @@ export const dom = {
   results: document.querySelector(".results"),
   resultsList: document.querySelector("ul.results__list"),
   resultsPages: document.querySelector(".results__pages"),
+  recipe: document.querySelector(".recipe"),
 };
 
 // -------------- <Private> Common functions -------------

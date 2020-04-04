@@ -3,6 +3,7 @@ import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import { dom, displayLoader, clearLoader } from "./views/baseView";
 import * as searchView from "./views/searchView";
+import * as recipeView from "./views/recipeView";
 
 const state = {};
 
@@ -58,7 +59,8 @@ const getRecipe = async () => {
   try {
     const recipe = new Recipe(id);
     state.recipe = await recipe.fetchRecipe();
-    console.log(state.recipe);
+    // display recipe
+    recipeView.displayRecipe(state.recipe);
   } catch (error) {
     alert(error);
   }
@@ -66,5 +68,3 @@ const getRecipe = async () => {
 
 // onclick of search lists
 window.addEventListener("hashchange", getRecipe);
-
-// display recipe
