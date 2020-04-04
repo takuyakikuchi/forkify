@@ -1,12 +1,21 @@
-export class Recipe {
-  constructor(arg) {
-    this.id = arg.id;
-    this.title = arg.title;
-    this.ingredients = arg.ingredients;
-    this.publisher = arg.publisher;
-    this.imageURL = arg.imageURL;
-    this.sourceURL = arg.sourceURL;
-    this.publisherURL = arg.publisherURL;
-    this.socialRank = arg.socialRank;
+import axios from "axios";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
+export default class Recipe {
+  constructor(id) {
+    this.id = id;
+  }
+
+  async fetchRecipe() {
+    try {
+      const recipe = await axios.get(
+        `http://forkify-api.herokuapp.com/api/get?rId=${this.id}`
+      );
+      this.recipe = recipe.data.recipe;
+      return this.recipe;
+    } catch (error) {
+      alert(error);
+    }
   }
 }

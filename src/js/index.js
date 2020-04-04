@@ -1,5 +1,6 @@
 // ----------------- Global controller -----------------
 import Search from "./models/Search";
+import Recipe from "./models/Recipe";
 import { dom, displayLoader, clearLoader } from "./views/baseView";
 import * as searchView from "./views/searchView";
 
@@ -50,11 +51,17 @@ dom.resultsPages.addEventListener("click", pagenate);
 
 // ----------------- Recipe controller -----------------
 // get recipe data
-const getRecipe = () => {
+const getRecipe = async () => {
   // Retreving id from hash
-  const id = parseInt(window.location.hash, 10);
-  // Removing leading"#"
-  id.substring(1);
+  const id = parseInt(window.location.hash.substring(1), 10);
+  // Fetching recipe from API
+  try {
+    const recipe = new Recipe(id);
+    state.recipe = await recipe.fetchRecipe();
+    console.log(state.recipe);
+  } catch (error) {
+    alert(error);
+  }
 };
 
 // onclick of search lists
