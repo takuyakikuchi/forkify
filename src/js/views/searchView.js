@@ -46,14 +46,16 @@ const renderButton = (currentPage, pageTotal) => {
 };
 
 export const displayResults = (results, page = 1, maxShow = 10) => {
-  // Render results according to the page setting
-  const targetResults = results.slice(maxShow * (page - 1), maxShow * page);
-  targetResults.forEach((result) => {
-    renderResult(result);
-  });
-  // Render buttons unless pageTotal is 1
-  const pageTotal = Math.ceil(results.length / maxShow);
-  if (pageTotal !== 1) renderButton(page, pageTotal);
+  if (results) {
+    // Render results according to the page setting
+    const targetResults = results.slice(maxShow * (page - 1), maxShow * page);
+    targetResults.forEach((result) => {
+      renderResult(result);
+    });
+    // Render buttons unless pageTotal is 1
+    const pageTotal = Math.ceil(results.length / maxShow);
+    if (pageTotal !== 1) renderButton(page, pageTotal);
+  }
 };
 
 export const clearResults = () => {
