@@ -17,18 +17,18 @@ export const dom = {
 // -------------- <Private> Common functions -------------
 
 // -------------- <Exposed> Common functions -------------
-export const displayLoader = () => {
+export const displayLoader = (target) => {
   const loader = `<div class="loader">
       <svg>
         <use href="img/icons.svg#icon-cw"></use>
       </svg>
     </div>`;
-  dom.results.insertAdjacentHTML("afterbegin", loader);
+  target.insertAdjacentHTML("afterbegin", loader);
 };
 
 export const clearLoader = () => {
   const loaderDOM = document.querySelector(".loader");
-  loaderDOM.parentNode.removeChild(loaderDOM);
+  if (loaderDOM) loaderDOM.parentNode.removeChild(loaderDOM);
 };
 
 export const ellipsis = (name, length) => {

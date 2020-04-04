@@ -18,12 +18,13 @@ const search = async () => {
       // Clear existing lists and page buttons
       searchView.clearResults();
       // Display loader
-      displayLoader();
+      displayLoader(dom.results);
       // Create search instance with API search results
       const search = new Search(input);
       state.search = await search.fetchResult();
       // Display results
       searchView.displayResults(state.search);
+      // Clear loader
       clearLoader();
     } catch (error) {
       alert(error);
@@ -47,20 +48,27 @@ const pagenate = (e) => {
 dom.search.addEventListener("submit", (e) => {
   e.preventDefault();
   search();
+  recipeView.clearRecipe();
 });
 dom.resultsPages.addEventListener("click", pagenate);
 
 // ----------------- Recipe controller -----------------
 // get recipe data
 const getRecipe = async () => {
+  // Clear existing recipe
+  recipeView.clearRecipe();
   // Retreving id from hash
   const id = parseInt(window.location.hash.substring(1), 10);
   // Fetching recipe from API
   try {
+    // Display loader
+    displayLoader(dom.recipe);
     const recipe = new Recipe(id);
     state.recipe = await recipe.fetchRecipe();
     // display recipe
     recipeView.displayRecipe(state.recipe);
+    // Clear loader
+    clearLoader();
   } catch (error) {
     alert(error);
   }

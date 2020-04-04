@@ -1,6 +1,7 @@
 import { dom } from "./baseView";
 
 const renderRecipe = (recipe) => {
+  // Image, time, num of serving
   let recipeHTML = `
     <figure class="recipe__fig">
       <img src="${recipe.image_url}" alt="${recipe.title}" class="recipe__img">
@@ -43,6 +44,7 @@ const renderRecipe = (recipe) => {
     </div>
     <div class="recipe__ingredients">
       <ul class="recipe__ingredient-list">`;
+  // Loop over ingredients
   recipe.ingredients.forEach((ingredient) => {
     recipeHTML += `
       <li class="recipe__item">
@@ -57,6 +59,7 @@ const renderRecipe = (recipe) => {
       </li>
     `;
   });
+  // Publisher
   recipeHTML += `
     </ul>
     <button class="btn-small recipe__btn">
@@ -82,6 +85,9 @@ const renderRecipe = (recipe) => {
   dom.recipe.insertAdjacentHTML("afterbegin", recipeHTML);
 };
 
+export const clearRecipe = () => (dom.recipe.innerHTML = "");
+
 export const displayRecipe = (recipe) => {
+  if (!recipe) return;
   renderRecipe(recipe);
 };
