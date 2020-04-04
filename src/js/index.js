@@ -41,9 +41,23 @@ const pagenate = (e) => {
   }
 };
 
+// DOM events
 dom.search.addEventListener("submit", (e) => {
   e.preventDefault();
   search();
 });
-
 dom.resultsPages.addEventListener("click", pagenate);
+
+// ----------------- Recipe controller -----------------
+// get recipe data
+const getRecipe = () => {
+  // Retreving id from hash
+  const id = parseInt(window.location.hash, 10);
+  // Removing leading"#"
+  id.substring(1);
+};
+
+// onclick of search lists
+window.addEventListener("hashchange", getRecipe);
+
+// display recipe
