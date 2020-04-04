@@ -1,19 +1,11 @@
 // ----------------- Global controller -----------------
 import Search from "./models/Search";
-import { dom } from "./views/baseView";
+import { dom, displayLoader, clearLoader } from "./views/baseView";
 import * as searchView from "./views/searchView";
 
 const state = {};
 
 // ----------------- Search controller -----------------
-
-// Display search results
-const displaySearch = (page = 1) => {
-  // Clear existing lists and page buttons
-  searchView.clearResults();
-  // Disply search results
-  searchView.displayResults(state.search, page);
-};
 
 // Search recipes in API
 const search = async () => {
@@ -21,11 +13,16 @@ const search = async () => {
   const input = searchView.getSearchValue();
   if (input) {
     try {
+      // Clear existing lists and page buttons
+      searchView.clearResults();
+      // Display loader
+      displayLoader();
       // Create search instance with API search results
       const search = new Search(input);
       state.search = await search.fetchResult();
       // Display results
-      displaySearch();
+      searchView.displayResults(state.search);
+      clearLoader();
     } catch (error) {
       alert(error);
     }
@@ -35,9 +32,12 @@ const search = async () => {
 // Get target page number from the closest page button
 const pagenate = (e) => {
   if (e.target.closest("[data-page]")) {
+    // Clear existing lists and page buttons
+    searchView.clearResults();
+    // Retrieving target page
     const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
     // Display results
-    displaySearch(targetPage);
+    searchView.displayResults(targetPage);
   }
 };
 
