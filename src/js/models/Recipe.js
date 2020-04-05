@@ -1,3 +1,7 @@
+// =========================================
+// Recipe Model
+// =========================================
+
 import axios from "axios";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -22,20 +26,25 @@ export default class Recipe {
     }
   }
 
+  // Preparation time(assuming it needs 15 min for each 3 ingredients)
   calcurateTime() {
-    // Assuming we need 15 min for each 3 ingredients
     const numberOfIngredients = this.ingredients.length;
     this.time = Math.ceil(numberOfIngredients / 3) * 15;
   }
 
+  // Initial setting for searvings
   setServings() {
     this.servings = 4;
   }
 
+  // Update searvings
   updateServings(method) {
-    method === "decrease"
-      ? (this.recipe.servings -= 1)
-      : (this.recipe.servings += 1);
+    if (method === "decrease") {
+      if (this.servings <= 1) return;
+      this.servings -= 1;
+    } else if (method === "increase") {
+      this.servings += 1;
+    }
   }
 
   //   parseIngredients() {

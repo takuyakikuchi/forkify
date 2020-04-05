@@ -83,24 +83,21 @@ const getRecipe = async () => {
   }
 };
 
+// Update servings and ingredients
 const updateServings = (e) => {
-  // Check if the clicked part is servings -/+
+  // Check if the clicked button is servings -/+
   if (e.target.matches(".recipe__info-buttons *")) {
     // Update servings based on the button clicked
     const className = e.target.closest("button").className;
-    console.log(state.recipe);
-    // className.includes("decrease")
-    //   ? state.recipe.updateServings("decrease")
-    //   : state.recipe.updateServings("increase");
-    // recipeView.clearRecipe();
-    // recipeView.displayRecipe(state.recipe);
+    className.includes("decrease")
+      ? state.recipe.updateServings("decrease")
+      : state.recipe.updateServings("increase");
+    recipeView.clearRecipe();
+    recipeView.displayRecipe(state.recipe);
   }
 };
 
+// Recipe DOM events
 window.addEventListener("hashchange", getRecipe);
 
-dom.recipe.addEventListener("click", (e) => {
-  if (state.recipe.servings > 1) {
-    updateServings(e);
-  }
-});
+dom.recipe.addEventListener("click", updateServings);

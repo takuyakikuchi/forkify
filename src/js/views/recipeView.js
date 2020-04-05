@@ -1,5 +1,30 @@
+// =========================================
+// Recipe View
+// =========================================
+
 import { dom } from "./baseView";
 
+// -------------- Private functions --------------
+
+// Render ingredient
+const renderIngredients = (ingredients) => {
+  return ingredients
+    .map((ingredient) => {
+      return `<li class="recipe__item">
+        <svg class="recipe__icon">
+          <use href="img/icons.svg#icon-check"></use>
+        </svg>
+        <div class="recipe__count">1000</div>
+        <div class="recipe__ingredient">
+          <span class="recipe__unit">g</span>
+          ${ingredient}
+        </div>
+      </li>`;
+    })
+    .join("");
+};
+
+// Render recipe
 const renderRecipe = (recipe) => {
   // Image, time, num of serving
   let recipeHTML = `
@@ -44,22 +69,11 @@ const renderRecipe = (recipe) => {
     </div>
     <div class="recipe__ingredients">
       <ul class="recipe__ingredient-list">`;
-  // Loop over ingredients
-  recipe.ingredients.forEach((ingredient) => {
-    recipeHTML += `
-      <li class="recipe__item">
-        <svg class="recipe__icon">
-          <use href="img/icons.svg#icon-check"></use>
-        </svg>
-        <div class="recipe__count">1000</div>
-        <div class="recipe__ingredient">
-          <span class="recipe__unit">g</span>
-          ${ingredient}
-        </div>
-      </li>
-    `;
-  });
-  // Publisher
+
+  // Ingredients part
+  recipeHTML += renderIngredients(recipe.ingredients);
+
+  // Publisher part
   recipeHTML += `
     </ul>
     <button class="btn-small recipe__btn">
@@ -85,14 +99,20 @@ const renderRecipe = (recipe) => {
   dom.recipe.insertAdjacentHTML("afterbegin", recipeHTML);
 };
 
+// -------------- Export functions --------------
+
+// Clear recipe
 export const clearRecipe = () => (dom.recipe.innerHTML = "");
 
+// Triggering renderRecipe
 export const displayRecipe = (recipe) => {
   if (!recipe) return;
   renderRecipe(recipe);
 };
 
+// Highlight the choosen recipe in the search result list
 export const activateRecipe = (id) => {
+  // Check all <li> with the given id, and give/remove active class
   dom.resultsList.childNodes.forEach((li) => {
     if (parseInt(li.dataset.id, 10) === id) {
       li.classList.add("results__link--active");
