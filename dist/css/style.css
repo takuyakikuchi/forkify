@@ -490,6 +490,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 .recipe__ingredient-list {
   display: grid;
