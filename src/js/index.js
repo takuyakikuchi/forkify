@@ -53,12 +53,15 @@ dom.search.addEventListener("submit", (e) => {
 dom.resultsPages.addEventListener("click", pagenate);
 
 // ----------------- Recipe controller -----------------
-// get recipe data
+
+// Get recipe data
 const getRecipe = async () => {
   // Clear existing recipe
   recipeView.clearRecipe();
   // Retreving id from hash
   const id = parseInt(window.location.hash.substring(1), 10);
+  // Hilight selected recipe in the list
+  recipeView.activateRecipe(id);
   // Fetching recipe from API
   try {
     // Display loader
@@ -74,5 +77,5 @@ const getRecipe = async () => {
   }
 };
 
-// onclick of search lists
+// Onclick of search lists
 window.addEventListener("hashchange", getRecipe);

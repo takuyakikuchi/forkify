@@ -3,7 +3,7 @@ import { dom, ellipsis } from "./baseView";
 export const getSearchValue = () => dom.searchField.value;
 
 const renderResult = (result) => {
-  const li = `<li>
+  const li = `<li data-id="${result.recipe_id}">
       <a class="results__link" href="#${result.recipe_id}">
         <figure class="results__fig">
           <img src="${result.image_url}" alt="${result.title}">

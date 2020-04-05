@@ -14,6 +14,7 @@ export default class Recipe {
       );
       this.recipe = recipe.data.recipe;
       this.calcurateTime();
+      this.setServings();
       return this.recipe;
     } catch (error) {
       alert(error);
@@ -24,5 +25,9 @@ export default class Recipe {
     // Assuming we need 15 min for each 3 ingredients
     const numberOfIngredients = this.recipe.ingredients.length;
     this.recipe.time = Math.ceil(numberOfIngredients / 3) * 15;
+  }
+
+  setServings() {
+    this.recipe.servings = 4;
   }
 }

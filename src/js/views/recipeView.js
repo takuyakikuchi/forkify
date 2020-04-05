@@ -21,7 +21,7 @@ const renderRecipe = (recipe) => {
         <svg class="recipe__info-icon">
           <use href="img/icons.svg#icon-man"></use>
         </svg>
-        <span class="recipe__info-data recipe__info-data--people">4</span>
+        <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
         <span class="recipe__info-text"> servings</span>
         <div class="recipe__info-buttons">
           <button class="btn-tiny">
@@ -91,3 +91,15 @@ export const displayRecipe = (recipe) => {
   if (!recipe) return;
   renderRecipe(recipe);
 };
+
+export const activateRecipe = (id) => {
+  dom.resultsList.childNodes.forEach((li) => {
+    if (parseInt(li.dataset.id, 10) === id) {
+      li.classList.add("results__link--active");
+    } else {
+      li.classList.remove("results__link--active");
+    }
+  });
+};
+
+// if(parseInt(li.dataset.id, 10) === id))
