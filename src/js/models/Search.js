@@ -1,3 +1,7 @@
+// =========================================
+// Search Model
+// =========================================
+
 import axios from "axios";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -13,7 +17,6 @@ export default class Search {
         `https://forkify-api.herokuapp.com/api/search?q=${this.keyword}`
       );
       this.results = results.data.recipes;
-      return this.results;
     } catch (error) {
       alert(error);
     }

@@ -1,7 +1,12 @@
+// =========================================
+// Search View
+// =========================================
+
 import { dom, ellipsis } from "./baseView";
 
-export const getSearchValue = () => dom.searchField.value;
+// --------------- Private functions -------------
 
+// Render results
 const renderResult = (result) => {
   const li = `<li data-id="${result.recipe_id}">
       <a class="results__link" href="#${result.recipe_id}">
@@ -17,6 +22,7 @@ const renderResult = (result) => {
   dom.resultsList.insertAdjacentHTML("beforeend", li);
 };
 
+// Render buttons
 const renderButton = (currentPage, pageTotal) => {
   // Assign necessary pages
   let pages;
@@ -28,6 +34,7 @@ const renderButton = (currentPage, pageTotal) => {
     pages = ["prev", "next"];
   }
 
+  // Render buttons based on the current page
   const pageButton = pages
     .map((page) => {
       return `<button class="btn-inline results__btn--${page}" data-page="${
@@ -45,21 +52,30 @@ const renderButton = (currentPage, pageTotal) => {
   dom.resultsPages.insertAdjacentHTML("afterbegin", pageButton);
 };
 
-export const displayResults = (results, page = 1, maxShow = 10) => {
-  if (results) {
-    // Render results according to the page setting
-    const targetResults = results.slice(maxShow * (page - 1), maxShow * page);
+// --------------- Export functions -------------
+
+// Render results based on the page setting
+export const displayResults = (search, page = 1, maxShow = 10) => {
+  if (search) {
+    // Limiting the number of results according to the page setting
+    const targetResults = search.results.slice(
+      maxShow * (page - 1),
+      maxShow * page
+    );
+
+    // Render the results
     targetResults.forEach((result) => {
       renderResult(result);
     });
+
     // Render buttons unless pageTotal is 1
-    const pageTotal = Math.ceil(results.length / maxShow);
+    const pageTotal = Math.ceil(search.results.length / maxShow);
     if (pageTotal !== 1) renderButton(page, pageTotal);
   }
 };
 
+// Clear results(lists and buttons)
 export const clearResults = () => {
-  // Clear targets are lists and buttons
   const elements = [dom.resultsList, dom.resultsPages];
   elements.forEach((element) => {
     while (element.firstChild) {
@@ -67,3 +83,6 @@ export const clearResults = () => {
     }
   });
 };
+
+// Get serch value
+export const getSearchValue = () => dom.searchField.value;

@@ -1,4 +1,7 @@
-// ----------------- Global controller -----------------
+// =====================================================
+// Global Controller
+// =====================================================
+
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import { dom, displayLoader, clearLoader } from "./views/baseView";
@@ -9,22 +12,23 @@ const state = {};
 
 // ----------------- Search controller -----------------
 
-// Search recipes in API
+// Search recipes in API and display the results
 const search = async () => {
   // Get input value
   const input = searchView.getSearchValue();
+
   if (input) {
+    // Clear existing lists and page buttons, display Loader
+    searchView.clearResults();
+    displayLoader(dom.results);
+
     try {
-      // Clear existing lists and page buttons
-      searchView.clearResults();
-      // Display loader
-      displayLoader(dom.results);
-      // Create search instance with API search results
-      const search = new Search(input);
-      state.search = await search.fetchResult();
-      // Display results
+      // Create search instance of API search results
+      state.search = new Search(input);
+      await state.search.fetchResult();
+
+      // Display results, clearLoader
       searchView.displayResults(state.search);
-      // Clear loader
       clearLoader();
     } catch (error) {
       alert(error);
@@ -32,19 +36,19 @@ const search = async () => {
   }
 };
 
-// Get target page number from the closest page button
+// Update search results with pagenation
 const pagenate = (e) => {
   if (e.target.closest("[data-page]")) {
     // Clear existing lists and page buttons
     searchView.clearResults();
-    // Retrieving target page
+
+    // Retrieving target page with "[data-page]" and display results accordingly
     const targetPage = parseInt(e.target.closest("[data-page]").dataset.page);
-    // Display results
-    searchView.displayResults(targetPage);
+    searchView.displayResults(state.search, targetPage);
   }
 };
 
-// DOM events
+// Search DOM events
 dom.search.addEventListener("submit", (e) => {
   e.preventDefault();
   search();
