@@ -66,9 +66,11 @@ const getRecipe = async () => {
   try {
     // Display loader
     displayLoader(dom.recipe);
-    const recipe = new Recipe(id);
-    state.recipe = await recipe.fetchRecipe();
+    state.recipe = new Recipe(id);
+    await state.recipe.fetchRecipe();
     // display recipe
+    state.recipe.calcurateTime();
+    state.recipe.setServings();
     recipeView.displayRecipe(state.recipe);
     // Clear loader
     clearLoader();
@@ -80,17 +82,19 @@ const getRecipe = async () => {
 const updateServings = (e) => {
   // Check if the clicked part is servings -/+
   if (e.target.matches(".recipe__info-buttons *")) {
+    // Update servings based on the button clicked
     const className = e.target.closest("button").className;
-    className.includes("decrease")
-      ? (state.recipe.servings -= 1)
-      : (state.recipe.servings += 1);
-    recipeView.clearRecipe();
-    recipeView.displayRecipe(state.recipe);
+    console.log(state.recipe);
+    // className.includes("decrease")
+    //   ? state.recipe.updateServings("decrease")
+    //   : state.recipe.updateServings("increase");
+    // recipeView.clearRecipe();
+    // recipeView.displayRecipe(state.recipe);
   }
 };
 
-// Onclick of search lists
 window.addEventListener("hashchange", getRecipe);
+
 dom.recipe.addEventListener("click", (e) => {
   if (state.recipe.servings > 1) {
     updateServings(e);

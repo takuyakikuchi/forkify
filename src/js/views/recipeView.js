@@ -4,7 +4,7 @@ const renderRecipe = (recipe) => {
   // Image, time, num of serving
   let recipeHTML = `
     <figure class="recipe__fig">
-      <img src="${recipe.image_url}" alt="${recipe.title}" class="recipe__img">
+      <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
       <h1 class="recipe__title">
         <span>${recipe.title}</span>
       </h1>
@@ -75,7 +75,7 @@ const renderRecipe = (recipe) => {
       This recipe was carefully designed and tested by
       <span class="recipe__by">${recipe.publisher}</span>. Please check out directions at their website.
     </p>
-    <a class="btn-small recipe__btn" href="${recipe.publisher_url}" target="_blank">
+    <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
       <span>Directions</span>
       <svg class="search__icon">
         <use href="img/icons.svg#icon-triangle-right"></use>
@@ -101,5 +101,3 @@ export const activateRecipe = (id) => {
     }
   });
 };
-
-// if(parseInt(li.dataset.id, 10) === id))
