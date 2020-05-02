@@ -5,3 +5,7 @@ To start server:
 
 To build dist for production: 
 ``` npm run build ```
+
+## Stack
+- axios: Promise based HTTP client for the browser and node.js
+- 

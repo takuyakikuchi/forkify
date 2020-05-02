@@ -6,7 +6,7 @@ import { dom, ellipsis } from "./baseView";
 
 // --------------- Private functions -------------
 
-// Render results
+// List of recipes
 const renderResult = (result) => {
   const li = `<li data-id="${result.recipe_id}">
       <a class="results__link" href="#${result.recipe_id}">
@@ -22,8 +22,7 @@ const renderResult = (result) => {
   dom.resultsList.insertAdjacentHTML("beforeend", li);
 };
 
-// Render buttons
-const renderButton = (currentPage, pageTotal) => {
+const renderPaginateButton = (currentPage, pageTotal) => {
   // Assign necessary pages
   let pages;
   if (currentPage === 1) {
@@ -63,18 +62,16 @@ export const displayResults = (search, page = 1, maxShow = 10) => {
       maxShow * page
     );
 
-    // Render the results
     targetResults.forEach((result) => {
       renderResult(result);
     });
 
     // Render buttons unless pageTotal is 1
     const pageTotal = Math.ceil(search.results.length / maxShow);
-    if (pageTotal !== 1) renderButton(page, pageTotal);
+    if (pageTotal !== 1) renderPaginateButton(page, pageTotal);
   }
 };
 
-// Clear results(lists and buttons)
 export const clearResults = () => {
   const elements = [dom.resultsList, dom.resultsPages];
   elements.forEach((element) => {
@@ -84,5 +81,4 @@ export const clearResults = () => {
   });
 };
 
-// Get serch value
 export const getSearchValue = () => dom.searchField.value;

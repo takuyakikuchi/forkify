@@ -2,7 +2,10 @@
 // Search Model
 // =========================================
 
+// For http request
 import axios from "axios";
+
+// For Babel ES6 functions
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 

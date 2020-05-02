@@ -6,7 +6,7 @@ import { dom } from "./baseView";
 
 // -------------- Private functions --------------
 
-// Render ingredient
+// Making ingredients HTML element which will be merged below to Main part
 const renderIngredients = (ingredients) => {
   return ingredients
     .map((ingredient) => {
@@ -14,9 +14,7 @@ const renderIngredients = (ingredients) => {
         <svg class="recipe__icon">
           <use href="img/icons.svg#icon-check"></use>
         </svg>
-        <div class="recipe__count">1000</div>
         <div class="recipe__ingredient">
-          <span class="recipe__unit">g</span>
           ${ingredient}
         </div>
       </li>`;
@@ -24,9 +22,8 @@ const renderIngredients = (ingredients) => {
     .join("");
 };
 
-// Render recipe
+// Main part
 const renderRecipe = (recipe) => {
-  // Image, time, num of serving
   let recipeHTML = `
     <figure class="recipe__fig">
       <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -48,18 +45,6 @@ const renderRecipe = (recipe) => {
         </svg>
         <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
         <span class="recipe__info-text"> servings</span>
-        <div class="recipe__info-buttons">
-          <button class="btn-tiny btn-decrease">
-            <svg>
-              <use href="img/icons.svg#icon-circle-with-minus"></use>
-            </svg>
-          </button>
-          <button class="btn-tiny btn-increase">
-            <svg>
-              <use href="img/icons.svg#icon-circle-with-plus"></use>
-            </svg>
-          </button>
-        </div>
       </div>
       <button class="recipe__love">
         <svg class="header__likes">
@@ -101,16 +86,14 @@ const renderRecipe = (recipe) => {
 
 // -------------- Export functions --------------
 
-// Clear recipe
 export const clearRecipe = () => (dom.recipe.innerHTML = "");
 
-// Triggering renderRecipe
 export const displayRecipe = (recipe) => {
   if (!recipe) return;
   renderRecipe(recipe);
 };
 
-// Highlight the choosen recipe in the search result list
+// Highlight selected recipe in the search result list
 export const activateRecipe = (id) => {
   // Check all <li> with the given id, and give/remove active class
   dom.resultsList.childNodes.forEach((li) => {

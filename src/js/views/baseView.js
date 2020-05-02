@@ -1,7 +1,9 @@
 /* ===========================================
 This module contains common variables and functions as follows
-- DOM strings
-- name ellipsis function
+- DOM strings object
+- Common functions
+  - name ellipsis
+  - display loader, clear loader
 ============================================= */
 
 // -------------- DOMstrings -----------------
@@ -31,7 +33,7 @@ export const clearLoader = () => {
   if (loaderDOM) loaderDOM.parentNode.removeChild(loaderDOM);
 };
 
-export const ellipsis = (name, length) => {
+export const ellipsis = (name, length /* length before ellipsis */) => {
   if (name.length >= length) return name.substring(0, length) + "...";
   return name;
 };
