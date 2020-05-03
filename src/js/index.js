@@ -3,8 +3,14 @@
 // =====================================================
 
 import { dom, displayLoader, clearLoader } from "./views/baseView";
+
+// View
+import * as favoritesView from "./views/favoritesView";
 import * as recipeView from "./views/recipeView";
 import * as searchView from "./views/searchView";
+
+// Model
+import Favorites from "./models/Favorites";
 import Recipe from "./models/Recipe";
 import Search from "./models/Search";
 
@@ -81,5 +87,34 @@ const getRecipe = async () => {
   }
 };
 
-// Recipe DOM events
 window.addEventListener("hashchange", getRecipe);
+
+// ----------------- Favorites controller -----------------
+
+const loadFavorites = () => {
+  state.favorites = new Favorites();
+
+  // Load from local storage
+  state.favorites.loadFromStorage();
+
+  // Render favorites
+  favoritesView.displayFavorites(state.favorites.list);
+  // On click of favorite recipe call getRecipe
+  // Check if the recipe is in favorites and disable heard button accordingly
+};
+
+const addFavorite = (e) => {
+  state.favorites.addToList({ ...state.recipe });
+
+  // Disable favorite button
+  // e.target.closest(".recipe__love").disabled = true;
+
+  favoritesView.displayFavorites(state.favorites.list);
+};
+
+// EventListers
+window.addEventListener("load", loadFavorites);
+dom.recipe.addEventListener("click", addFavorite);
+
+// Remove recipe from Favorites on click of delete button on Favorite list
+// (Optional) Clear all favorite recipe on click of garbage icon

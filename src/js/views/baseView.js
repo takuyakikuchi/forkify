@@ -8,12 +8,13 @@ This module contains common variables and functions as follows
 
 // -------------- DOMstrings -----------------
 export const dom = {
-  search: document.querySelector(".search"),
-  searchField: document.querySelector(".search__field"),
+  likesList: document.querySelector(".likes__list"),
+  recipe: document.querySelector(".recipe"),
   results: document.querySelector(".results"),
   resultsList: document.querySelector("ul.results__list"),
   resultsPages: document.querySelector(".results__pages"),
-  recipe: document.querySelector(".recipe"),
+  search: document.querySelector(".search"),
+  searchField: document.querySelector(".search__field"),
 };
 
 // -------------- <Private> Common functions -------------
