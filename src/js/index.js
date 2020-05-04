@@ -99,8 +99,6 @@ const loadFavorites = () => {
 
   // Render favorites
   favoritesView.displayFavorites(state.favorites.list);
-  // On click of favorite recipe call getRecipe
-  // Check if the recipe is in favorites and disable heard button accordingly
 };
 
 const addFavorite = (e) => {

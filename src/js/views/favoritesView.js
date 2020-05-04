@@ -21,11 +21,20 @@ const renderFavorites = (recipe) => {
   dom.likesList.insertAdjacentHTML("beforeend", li);
 };
 
+const clearFavorites = () => {
+  const element = dom.likesList;
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
 // --------------- Export functions -------------
 
 // @favorite: array of recipe in favorites
 export const displayFavorites = (favorites) => {
   if (!favorites) return;
+
+  clearFavorites();
 
   favorites.forEach((recipe) => {
     renderFavorites(recipe);
