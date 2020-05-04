@@ -95,12 +95,14 @@ export const displayRecipe = (recipe) => {
 
 // Highlight selected recipe in the search result list
 export const activateRecipe = (id) => {
-  // Check all <li> with the given id, and give/remove active class
-  dom.resultsList.childNodes.forEach((li) => {
-    if (parseInt(li.dataset.id, 10) === id) {
-      li.classList.add("results__link--active");
-    } else {
-      li.classList.remove("results__link--active");
-    }
-  });
+  // When resultList exists highlight selected Recipe in the list
+  if (dom.resultList) {
+    dom.resultsList.childNodes.forEach((li) => {
+      if (parseInt(li.dataset.id, 10) === id) {
+        li.classList.add("results__link--active");
+      } else {
+        li.classList.remove("results__link--active");
+      }
+    });
+  }
 };

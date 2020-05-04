@@ -8,7 +8,7 @@ import { dom, ellipsis } from "./baseView";
 
 const renderFavorites = (recipe) => {
   const li = `<li>
-      <a class="likes__link" href="${recipe.id}">
+      <a class="likes__link" href="#${recipe.id}">
         <figure class="likes__fig">
           <img src="${recipe.img}" alt="${recipe.title}">
         </figure>
