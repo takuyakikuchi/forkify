@@ -102,12 +102,14 @@ const loadFavorites = () => {
 };
 
 const addFavorite = (e) => {
-  state.favorites.addToList({ ...state.recipe });
+  if (e.target.matches(".recipe__love, .recipe__love *")) {
+    state.favorites.addToList({ ...state.recipe });
 
-  // Disable favorite button
-  // e.target.closest(".recipe__love").disabled = true;
+    // Disable favorite button
+    // e.target.closest(".recipe__love").disabled = true;
 
-  favoritesView.displayFavorites(state.favorites.list);
+    favoritesView.displayFavorites(state.favorites.list);
+  }
 };
 
 // EventListers
