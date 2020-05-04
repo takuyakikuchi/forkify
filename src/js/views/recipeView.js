@@ -93,6 +93,11 @@ export const displayRecipe = (recipe) => {
   renderRecipe(recipe);
 };
 
+export const hideFavoriteButton = () => {
+  const favoriteButton = document.querySelector(".recipe__love");
+  favoriteButton.style.display = "none";
+};
+
 // Highlight selected recipe in the search result list
 export const activateRecipe = (id) => {
   // When resultList exists highlight selected Recipe in the list

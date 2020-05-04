@@ -80,6 +80,12 @@ const getRecipe = async () => {
     state.recipe.calculateTime();
     state.recipe.setServings();
     recipeView.displayRecipe(state.recipe);
+
+    // Hide favorite button when it is already in favorite
+    if (checkFavorite(id)) {
+      recipeView.hideFavoriteButton();
+    }
+
     // Clear loader
     clearLoader();
   } catch (error) {
@@ -90,6 +96,15 @@ const getRecipe = async () => {
 window.addEventListener("hashchange", getRecipe);
 
 // ----------------- Favorites controller -----------------
+
+// @id: Selected Recipe's id
+function checkFavorite(id) {
+  let alreadyFavorite = false;
+  state.favorites.list.forEach((recipe) => {
+    if (recipe.id === id) return (alreadyFavorite = true);
+  });
+  return alreadyFavorite;
+}
 
 const loadFavorites = () => {
   state.favorites = new Favorites();
@@ -105,9 +120,6 @@ const addFavorite = (e) => {
   if (e.target.matches(".recipe__love, .recipe__love *")) {
     state.favorites.addToList({ ...state.recipe });
 
-    // Disable favorite button
-    // e.target.closest(".recipe__love").disabled = true;
-
     favoritesView.displayFavorites(state.favorites.list);
   }
 };
@@ -118,3 +130,4 @@ dom.recipe.addEventListener("click", addFavorite);
 
 // Remove recipe from Favorites on click of delete button on Favorite list
 // (Optional) Clear all favorite recipe on click of garbage icon
+// Message when favorite added
