@@ -7,7 +7,9 @@ export default class ShoppingList {
     this.list = [];
   }
 
-  addToList() {}
+  addToList(ingredients) {
+    this.list.push(...ingredients);
+  }
 
   removeFromList() {}
 }

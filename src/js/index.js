@@ -8,11 +8,13 @@ import { dom, displayLoader, clearLoader } from "./views/baseView";
 import * as favoritesView from "./views/favoritesView";
 import * as recipeView from "./views/recipeView";
 import * as searchView from "./views/searchView";
+import * as shoppingListView from "./views/shoppingListView";
 
 // Model
 import Favorites from "./models/Favorites";
 import Recipe from "./models/Recipe";
 import Search from "./models/Search";
+import ShoppingList from "./models/ShoppingList";
 
 const state = {};
 
@@ -53,14 +55,6 @@ const paginate = (e) => {
   }
 };
 
-// Search DOM events
-dom.search.addEventListener("submit", (e) => {
-  e.preventDefault();
-  search();
-  recipeView.clearRecipe();
-});
-dom.resultsPages.addEventListener("click", paginate);
-
 // ----------------- Recipe controller -----------------
 
 // Get recipe data
@@ -93,8 +87,6 @@ const getRecipe = async () => {
   }
 };
 
-window.addEventListener("hashchange", getRecipe);
-
 // ----------------- Favorites controller -----------------
 
 // @id: Selected Recipe's id
@@ -124,18 +116,46 @@ const addFavorite = (e) => {
   getRecipe();
 };
 
-// EventListers
-window.addEventListener("load", loadFavorites);
-
 // Remove recipe from Favorites on click of delete button on Favorite list
 // (Optional) Clear all favorite recipe on click of garbage icon
 // Message when favorite added
 
 // ----------------- Shopping List controller -----------------
 
+const addShoppingList = () => {
+  state.shoppingList = new ShoppingList();
+
+  // Get ingredients of selected Recipe
+  const ingredients = state.recipe.ingredients;
+
+  state.shoppingList.addToList(ingredients);
+
+  shoppingListView.displayShoppingList(state.shoppingList.list);
+};
+
+// -------------------------- DOM events ------------------------
+
+// Search
+dom.search.addEventListener("submit", (e) => {
+  e.preventDefault();
+  search();
+  recipeView.clearRecipe();
+});
+
+// Pagination
+dom.resultsPages.addEventListener("click", paginate);
+
+// API call
+window.addEventListener("hashchange", getRecipe);
+
+// Loading favorites from Local storage
+window.addEventListener("load", loadFavorites);
+
 // Click event for add favorite and add to shopping list
 dom.recipe.addEventListener("click", (e) => {
   if (e.target.matches(".recipe__love, .recipe__love *")) {
     addFavorite();
+  } else if (e.target.matches(".recipe__btn, .recipe__btn *")) {
+    addShoppingList();
   }
 });

@@ -15,6 +15,7 @@ export const dom = {
   resultsPages: document.querySelector(".results__pages"),
   search: document.querySelector(".search"),
   searchField: document.querySelector(".search__field"),
+  shoppingList: document.querySelector(".shopping__list"),
 };
 
 // -------------- <Private> Common functions -------------
