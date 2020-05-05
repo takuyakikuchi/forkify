@@ -117,17 +117,25 @@ const loadFavorites = () => {
 };
 
 const addFavorite = (e) => {
-  if (e.target.matches(".recipe__love, .recipe__love *")) {
-    state.favorites.addToList({ ...state.recipe });
+  state.favorites.addToList({ ...state.recipe });
 
-    favoritesView.displayFavorites(state.favorites.list);
-  }
+  favoritesView.displayFavorites(state.favorites.list);
+
+  getRecipe();
 };
 
 // EventListers
 window.addEventListener("load", loadFavorites);
-dom.recipe.addEventListener("click", addFavorite);
 
 // Remove recipe from Favorites on click of delete button on Favorite list
 // (Optional) Clear all favorite recipe on click of garbage icon
 // Message when favorite added
+
+// ----------------- Shopping List controller -----------------
+
+// Click event for add favorite and add to shopping list
+dom.recipe.addEventListener("click", (e) => {
+  if (e.target.matches(".recipe__love, .recipe__love *")) {
+    addFavorite();
+  }
+});
