@@ -133,6 +133,12 @@ const addShoppingList = () => {
   shoppingListView.displayShoppingList(state.shoppingList.list);
 };
 
+const deleteShoppingItem = (e) => {
+  if (e.target.matches(".shopping__delete, .shopping__delete *")) {
+    shoppingListView.deleteItem(e.target.closest("li"));
+  }
+};
+
 // -------------------------- DOM events ------------------------
 
 // Search
@@ -159,3 +165,6 @@ dom.recipe.addEventListener("click", (e) => {
     addShoppingList();
   }
 });
+
+// Shopping item delete
+dom.shoppingList.addEventListener("click", deleteShoppingItem);

@@ -26,3 +26,8 @@ export const displayShoppingList = (ingredients) => {
     renderListItem(item);
   });
 };
+
+// @li: Selected li DOM element
+export const deleteItem = (li) => {
+  li.parentNode.removeChild(li);
+};
