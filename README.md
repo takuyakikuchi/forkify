@@ -1,11 +1,8 @@
-## npm scripts
+## To start application
 
-To start server: 
 ``` npm run start ```
 
-To build dist for production: 
-``` npm run build ```
 
 ## Stack
-- axios: Promise based HTTP client for the browser and node.js
-- 
+- API call: axios
+- Babel
